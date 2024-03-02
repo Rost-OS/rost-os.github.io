@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To 白</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-        .emoji-container {
-            font-size: calc(10vmin + 10vh); 
-            text-align: center;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>to 白总</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    #refuseBtn {
+        position: absolute;
+    }
+</style>
 </head>
 <body>
 
-<div class="emoji-container">白总，我爱你</div>
+<div id="content">你愿意和我在一起吗？</div>
+<button id="acceptBtn">接受</button>
+<button id="refuseBtn">拒绝</button>
 
+<script>
+document.getElementById('refuseBtn').addEventListener('mouseenter', function() {
+    const x = Math.random() * (window.innerWidth - this.clientWidth);
+    const y = Math.random() * (window.innerHeight - this.clientHeight);
+    this.style.left = x + 'px';
+    this.style.top = y + 'px';
+});
+
+document.getElementById('acceptBtn').addEventListener('click', function() {
+    alert('我们在一起吧！');
+    // 这里可以添加更多逻辑，比如跳转到另一个页面或显示更多信息
+});
+</script>
 </body>
 </html>
