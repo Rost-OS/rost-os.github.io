@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,20 +24,22 @@
         header {
             background: white;
             padding: 1.5rem;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
         .container {
-            max-width: 1200px;
+            width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
             flex: 1;
         }
 
         .search-box {
+            width: 100%;
             max-width: 600px;
             margin: 2rem auto;
             position: relative;
@@ -48,22 +51,24 @@
             border: none;
             border-radius: 12px;
             background: white;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             font-size: 1rem;
             transition: all 0.3s ease;
         }
 
         .search-input:focus {
             outline: none;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.12);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
             transform: translateY(-2px);
         }
 
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        .tools-wrapper {
+            display: flex;
+            flex-wrap: wrap;
             gap: 1.5rem;
-            margin-top: 2rem;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 1rem 0;
         }
 
         .tool-card {
@@ -74,11 +79,18 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            width: calc(25% - 1.125rem);
+            /* 4列布局，考虑间距 */
+            min-width: 250px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         .tool-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
         .tool-card::after {
@@ -88,7 +100,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.2) 100%);
+            background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.2) 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -106,6 +118,7 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
 
         .tool-title {
@@ -118,6 +131,7 @@
             font-size: 0.9rem;
             color: #636e72;
             line-height: 1.5;
+            flex: 1;
         }
 
         .category-chips {
@@ -125,6 +139,10 @@
             gap: 0.5rem;
             flex-wrap: wrap;
             margin: 1rem 0;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 1rem auto;
         }
 
         .chip {
@@ -134,9 +152,11 @@
             font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            user-select: none;
         }
 
-        .chip:hover, .chip.active {
+        .chip:hover,
+        .chip.active {
             background: #2c3e50;
             color: white;
         }
@@ -146,6 +166,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -156,17 +177,77 @@
             animation: fadeIn 0.5s ease forwards;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
+            .tool-card {
+                width: calc(33.333% - 1rem);
+                /* 3列布局 */
+            }
+        }
+
+        @media (max-width: 900px) {
+            .tool-card {
+                width: calc(50% - 0.75rem);
+                /* 2列布局 */
+            }
+        }
+
+        @media (max-width: 600px) {
             .container {
                 padding: 1rem;
             }
-            
-            .tools-grid {
-                grid-template-columns: 1fr;
+
+            .tool-card {
+                width: 100%;
+                /* 1列布局 */
             }
+
+            .category-chips {
+                gap: 0.3rem;
+            }
+
+            .chip {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* 悬浮窗样式 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .popup {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: scale(0.8);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.show .popup {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .overlay.show {
+            display: flex;
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1 style="text-align: center; font-weight: 700;">工具集 | Tools Hub</h1>
@@ -185,7 +266,14 @@
             <div class="chip" data-category="dev">开发工具</div>
         </div>
 
-        <div class="tools-grid" id="toolsGrid"></div>
+        <div class="tools-wrapper" id="toolsWrapper"></div>
+    </div>
+
+    <div class="overlay" id="popupOverlay">
+        <div class="popup">
+            <h2 id="popupTitle">工具标题</h2>
+            <p id="popupDesc">工具描述信息</p>
+        </div>
     </div>
 
     <script>
@@ -243,22 +331,22 @@
 
         // 渲染工具卡片
         function renderTools(toolsToRender) {
-            const toolsGrid = document.getElementById('toolsGrid');
-            toolsGrid.innerHTML = '';
-            
+            const toolsWrapper = document.getElementById('toolsWrapper');
+            toolsWrapper.innerHTML = '';
+
             toolsToRender.forEach((tool, index) => {
                 const delay = index * 0.1;
                 const card = document.createElement('div');
                 card.className = 'tool-card';
                 card.style.animationDelay = `${delay}s`;
-                
+
                 card.innerHTML = `
                     <div class="tool-icon">${tool.icon}</div>
                     <div class="tool-title">${tool.title}</div>
                     <div class="tool-desc">${tool.desc}</div>
                 `;
-                
-                toolsGrid.appendChild(card);
+
+                toolsWrapper.appendChild(card);
             });
         }
 
@@ -269,8 +357,8 @@
         const searchInput = document.getElementById('searchInput');
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
-            const filteredTools = tools.filter(tool => 
-                tool.title.toLowerCase().includes(searchTerm) || 
+            const filteredTools = tools.filter(tool =>
+                tool.title.toLowerCase().includes(searchTerm) ||
                 tool.desc.toLowerCase().includes(searchTerm)
             );
             renderTools(filteredTools);
@@ -286,10 +374,10 @@
 
                 // 筛选工具
                 const category = chip.dataset.category;
-                const filteredTools = category === 'all' 
-                    ? tools 
+                const filteredTools = category === 'all'
+                    ? tools
                     : tools.filter(tool => tool.category === category);
-                
+
                 renderTools(filteredTools);
             });
         });
@@ -304,6 +392,31 @@
                 }, 100);
             }
         });
+
+
+        // 打开悬浮窗
+        function openPopup(tool) {
+            const popupOverlay = document.getElementById('popupOverlay');
+            document.getElementById('popupTitle').textContent = tool.title;
+            document.getElementById('popupDesc').textContent = tool.desc;
+            popupOverlay.classList.add('show');
+        }
+
+        // 关闭悬浮窗
+        function closePopup() {
+            document.getElementById('popupOverlay').classList.remove('show');
+        }
+
+        // 为工具卡片添加点击事件
+        document.querySelectorAll('.tool-card').forEach((card, index) => {
+            card.addEventListener('click', () => openPopup(tools[index]));
+        });
+
+        // 点击悬浮窗外部关闭
+        document.getElementById('popupOverlay').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closePopup();
+        });
     </script>
 </body>
+
 </html>
