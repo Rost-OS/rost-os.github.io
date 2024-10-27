@@ -1,2 +1,309 @@
-<h1>HELLO WORLD</h1>
-<P>任俊聪</P>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具集 | Tools Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f6fa;
+            color: #2c3e50;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: white;
+            padding: 1.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .tool-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.2) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tool-card:hover::after {
+            opacity: 1;
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background: #f1f2f6;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .tool-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-desc {
+            font-size: 0.9rem;
+            color: #636e72;
+            line-height: 1.5;
+        }
+
+        .category-chips {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .chip {
+            padding: 0.5rem 1rem;
+            background: #f1f2f6;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chip:hover, .chip.active {
+            background: #2c3e50;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tool-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="text-align: center; font-weight: 700;">工具集 | Tools Hub</h1>
+    </header>
+
+    <div class="container">
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="搜索工具..." id="searchInput">
+        </div>
+
+        <div class="category-chips">
+            <div class="chip active" data-category="all">全部</div>
+            <div class="chip" data-category="convert">格式转换</div>
+            <div class="chip" data-category="encode">编码解码</div>
+            <div class="chip" data-category="image">图片处理</div>
+            <div class="chip" data-category="dev">开发工具</div>
+        </div>
+
+        <div class="tools-grid" id="toolsGrid"></div>
+    </div>
+
+    <script>
+        // 工具数据
+        const tools = [
+            {
+                title: "JSON 格式化",
+                desc: "在线JSON格式化工具，支持压缩与美化",
+                category: "dev",
+                icon: "📝"
+            },
+            {
+                title: "图片压缩",
+                desc: "批量压缩图片，支持JPG、PNG等格式",
+                category: "image",
+                icon: "🖼️"
+            },
+            {
+                title: "Base64 转换",
+                desc: "文本与Base64互转工具",
+                category: "encode",
+                icon: "🔄"
+            },
+            {
+                title: "PDF 转 Word",
+                desc: "PDF文档转Word格式，保留原有排版",
+                category: "convert",
+                icon: "📄"
+            },
+            {
+                title: "时间戳转换",
+                desc: "Unix时间戳与日期时间互转",
+                category: "dev",
+                icon: "⏰"
+            },
+            {
+                title: "URL 编码",
+                desc: "URL编码与解码转换工具",
+                category: "encode",
+                icon: "🔗"
+            },
+            {
+                title: "图片提取文字",
+                desc: "OCR图片文字识别工具",
+                category: "image",
+                icon: "👁️"
+            },
+            {
+                title: "HTML 转 Markdown",
+                desc: "HTML代码转Markdown格式",
+                category: "convert",
+                icon: "📋"
+            }
+        ];
+
+        // 渲染工具卡片
+        function renderTools(toolsToRender) {
+            const toolsGrid = document.getElementById('toolsGrid');
+            toolsGrid.innerHTML = '';
+            
+            toolsToRender.forEach((tool, index) => {
+                const delay = index * 0.1;
+                const card = document.createElement('div');
+                card.className = 'tool-card';
+                card.style.animationDelay = `${delay}s`;
+                
+                card.innerHTML = `
+                    <div class="tool-icon">${tool.icon}</div>
+                    <div class="tool-title">${tool.title}</div>
+                    <div class="tool-desc">${tool.desc}</div>
+                `;
+                
+                toolsGrid.appendChild(card);
+            });
+        }
+
+        // 初始渲染
+        renderTools(tools);
+
+        // 搜索功能
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredTools = tools.filter(tool => 
+                tool.title.toLowerCase().includes(searchTerm) || 
+                tool.desc.toLowerCase().includes(searchTerm)
+            );
+            renderTools(filteredTools);
+        });
+
+        // 分类筛选
+        const chips = document.querySelectorAll('.chip');
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                // 更新激活状态
+                chips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+
+                // 筛选工具
+                const category = chip.dataset.category;
+                const filteredTools = category === 'all' 
+                    ? tools 
+                    : tools.filter(tool => tool.category === category);
+                
+                renderTools(filteredTools);
+            });
+        });
+
+        // 工具卡片点击效果
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.tool-card')) {
+                const card = e.target.closest('.tool-card');
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
