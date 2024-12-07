@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>双曲线问题</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <h2>双曲线问题解题过程</h2>
+
+  <p>
+    已知双曲线 \(C: \frac{x^2}{a^2} - \frac{y^2}{b^2} = 1\) 的离心率为 \(\sqrt{3}\)，点 \((\sqrt{3}, 0)\) 是双曲线的一个顶点。
+  </p>
+
+  <h3>(1) 求双曲线的方程</h3>
+
+  <p>
+    由题意可得：
+    <ul>
+      <li>a = √3</li>
+      <li>e = c/a = √3</li>
+      <li>c = a * e = 3</li>
+    </ul>
+    根据 \(c^2 = a^2 + b^2\)，可得 b^2 = 6。
+    所以，双曲线的方程为：
+    \[C: \frac{x^2}{3} - \frac{y^2}{6} = 1\]
+  </p>
+
+  <h3>(2) 求 AB 的长</h3>
+
+  <p>
+    设直线 l 的方程为 \(y = \sqrt{3}x + k\)。
+    将直线 l 的方程代入双曲线方程，得：
+    \[\frac{x^2}{3} - \frac{(\sqrt{3}x + k)^2}{6} = 1\]
+    化简得：
+    \[x^2 - 2\sqrt{3}kx - 3k^2 - 6 = 0\]
+    设 A(x1, y1), B(x2, y2)，则 x1, x2 是上式的两个根。
+    根据韦达定理，有：
+    <ul>
+      <li>x1 + x2 = 2√3k</li>
+      <li>x1 * x2 = -3k^2 - 6</li>
+    </ul>
+    又因为点 F(3, 0) 在直线 l 上，所以 k = -√3。
+    代入上式，得 x1 + x2 = -6，x1 * x2 = -15。
+    所以，AB 的长度为：
+    \[AB = \sqrt{(x1 - x2)^2 + (y1 - y2)^2} = \sqrt{(x1 + x2)^2 - 4x1x2} = \sqrt{36 + 60} = \sqrt{96} = 4\sqrt{6}\]
+  </p>
+
+  <p>
+    因此，AB 的长度为 \(4\sqrt{6}\)。
+  </p>
+</body>
+</html>
