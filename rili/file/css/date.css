@@ -1,0 +1,900 @@
+/*修改时一定要标注好注释！不然我有时候读不懂逻辑反而要重写...本文件位于./file/css/中，注意路径问题。其为单独css，外联需../ */
+:root {
+    --primary: #2563eb;
+    /* 主色调 */
+    --primary-light: #60a5fa;
+    /* 主色调的浅色 */
+    --secondary: #f1f5f9;
+    /* 背景色 */
+    --text: #1e293b;
+    /* 主要文字颜色 */
+    --text-light: #64748b;
+    /* 次要文字颜色 */
+    --shadow: rgba(0, 0, 0, 0.1);
+    /* 阴影效果 */
+    --shadow-lg: rgba(0, 0, 0, 0.15);
+    /* 大阴影效果 */
+    --white: #ffffff;
+    /* 白色 */
+}
+
+* {
+    margin: 0;
+    /* 清除默认边距 */
+    padding: 0;
+    /* 清除默认内边距 */
+    box-sizing: border-box;
+    /* 盒子模型设置 */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* 字体设置 */
+}
+
+body {
+    background: var(--secondary);
+    /* 背景色 */
+    color: var(--text);
+    /* 文字颜色 */
+    min-height: 100vh;
+    /* 最小高度为视口高度 */
+    overflow-x: hidden;
+    /* 禁止横向滚动 */
+    line-height: 1.6;
+    /* 行高 */
+}
+
+.container {
+    max-width: 1200px;
+    /* 最大宽度 */
+    margin: 0 auto;
+    /* 居中 */
+    padding: 2rem;
+    /* 内边距 */
+}
+
+.header {
+    text-align: center;
+    /* 文字居中 */
+    margin-bottom: 3rem;
+    /* 下边距 */
+    opacity: 0;
+    /* 初始透明度 */
+    transform: translateY(20px);
+    /* 向下移动 */
+    animation: fadeInUp 0.8s ease forwards;
+    /* 动画效果 */
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    /* 标题字体大小 */
+    color: var(--primary);
+    /* 标题颜色 */
+    margin-bottom: 0.5rem;
+    /* 下边距 */
+    font-weight: 700;
+    /* 字体加粗 */
+}
+
+.header p {
+    color: var(--text-light);
+    /* 副标题颜色 */
+    font-size: 1.1rem;
+    /* 副标题字体大小 */
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        /* 结束时完全不透明 */
+        transform: translateY(0);
+        /* 结束时回到原位 */
+    }
+}
+
+.calendar {
+    display: grid;
+    /* 使用网格布局 */
+    grid-template-columns: repeat(7, 1fr);
+    /* 7列 */
+    gap: 1rem;
+    /* 网格间距 */
+    margin-bottom: 2rem;
+    /* 下边距 */
+    padding: 1rem;
+    /* 内边距 */
+    background: var(--white);
+    /* 背景色 */
+    border-radius: 16px;
+    /* 圆角 */
+    box-shadow: 0 4px 6px var(--shadow);
+    /* 阴影效果 */
+}
+
+.calendar-header {
+    display: flex;
+    /* 使用弹性布局 */
+    justify-content: space-between;
+    /* 两端对齐 */
+    align-items: center;
+    /* 垂直居中 */
+    margin-bottom: 2rem;
+    /* 下边距 */
+    padding: 0 1rem;
+    /* 左右内边距 */
+}
+
+.calendar-title {
+    display: flex;
+    /* 使用弹性布局 */
+    align-items: center;
+    /* 垂直居中 */
+    gap: 1rem;
+    /* 间距 */
+}
+
+.calendar-nav-btn {
+    background: var(--white);
+    /* 按钮背景色 */
+    border: none;
+    /* 无边框 */
+    width: 40px;
+    /* 按钮宽度 */
+    height: 40px;
+    /* 按钮高度 */
+    border-radius: 50%;
+    /* 圆形按钮 */
+    display: flex;
+    /* 使用弹性布局 */
+    align-items: center;
+    /* 垂直居中 */
+    justify-content: center;
+    /* 水平居中 */
+    cursor: pointer;
+    /* 鼠标指针样式 */
+    box-shadow: 0 2px 4px var(--shadow);
+    /* 阴影效果 */
+    transition: all 0.3s ease;
+    /* 过渡效果 */
+}
+
+.calendar-nav-btn:hover {
+    background: var(--primary);
+    /* 悬停时背景色 */
+    color: var(--white);
+    /* 悬停时文字颜色 */
+    transform: scale(1.1);
+    /* 悬停时放大 */
+}
+
+.calendar-today-btn {
+    background: var(--primary);
+    /* 按钮背景色 */
+    color: var(--white);
+    /* 按钮文字颜色 */
+    border: none;
+    /* 无边框 */
+    padding: 0.5rem 1rem;
+    /* 内边距 */
+    border-radius: 20px;
+    /* 圆角 */
+    display: flex;
+    /* 使用弹性布局 */
+    align-items: center;
+    /* 垂直居中 */
+    gap: 0.5rem;
+    /* 间距 */
+    cursor: pointer;
+    /* 鼠标指针样式 */
+    font-size: 0.9rem;
+    /* 字体大小 */
+    transition: all 0.3s ease;
+    /* 过渡效果 */
+}
+
+.calendar-today-btn:hover {
+    background: var(--primary-light);
+    /* 悬停时背景色 */
+    transform: translateY(-2px);
+    /* 悬停时向上移动 */
+}
+
+.calendar-cell {
+    aspect-ratio: 1;
+    /* 宽高比 */
+    background: var(--white);
+    /* 背景色 */
+    border-radius: 12px;
+    /* 圆角 */
+    padding: 1rem;
+    /* 内边距 */
+    box-shadow: 0 2px 4px var(--shadow);
+    /* 阴影效果 */
+    cursor: pointer;
+    /* 鼠标指针样式 */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 过渡效果 */
+    opacity: 0;
+    /* 初始透明度 */
+    transform: scale(0.9);
+    /* 初始缩放 */
+    animation: fadeIn 0.5s ease forwards;
+    /* 动画效果 */
+    display: flex;
+    /* 使用弹性布局 */
+    flex-direction: column;
+    /* 垂直排列 */
+    gap: 0.5rem;
+    /* 间距 */
+}
+
+.calendar-cell .date {
+    font-size: 1.2rem;
+    /* 日期字体大小 */
+    font-weight: 600;
+    /* 字体加粗 */
+    color: var(--text);
+    /* 日期颜色 */
+}
+
+.calendar-cell .schedule {
+    font-size: 0.85rem;
+    /* 日程字体大小 */
+    color: var(--primary);
+    /* 日程颜色 */
+    overflow: hidden;
+    /* 超出隐藏 */
+    text-overflow: ellipsis;
+    /* 超出省略号 */
+    white-space: nowrap;
+    /* 不换行 */
+}
+
+.calendar-cell:hover {
+    transform: translateY(-5px);
+    /* 悬停时向上移动 */
+    box-shadow: 0 8px 12px var(--shadow-lg);
+    /* 悬停时阴影效果 */
+    background: var(--primary);
+    /* 悬停时背景色 */
+    color: var(--white);
+    /* 悬停时文字颜色 */
+}
+
+.calendar-cell:hover .date,
+.calendar-cell:hover .schedule {
+    color: var(--white);
+    /* 悬停时日期和日程颜色 */
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        /* 结束时完全不透明 */
+        transform: scale(1);
+        /* 结束时回到原位 */
+    }
+}
+
+.schedule-list {
+    margin-top: 3rem;
+    /* 上边距 */
+    opacity: 0;
+    /* 初始透明度 */
+    animation: slideIn 0.8s ease forwards;
+    /* 动画效果 */
+}
+
+.schedule-list h2 {
+    font-size: 1.8rem;
+    /* 标题字体大小 */
+    color: var(--text);
+    /* 标题颜色 */
+    margin-bottom: 1.5rem;
+    /* 下边距 */
+    padding-left: 1rem;
+    /* 左内边距 */
+    border-left: 4px solid var(--primary);
+    /* 左边框 */
+}
+
+.schedule-item {
+    background: var(--white);
+    /* 背景色 */
+    border-radius: 12px;
+    /* 圆角 */
+    padding: 1.5rem;
+    /* 内边距 */
+    margin-bottom: 1rem;
+    /* 下边距 */
+    box-shadow: 0 2px 4px var(--shadow);
+    /* 阴影效果 */
+    cursor: pointer;
+    /* 鼠标指针样式 */
+    transition: all 0.3s ease;
+    /* 过渡效果 */
+    display: flex;
+    /* 使用弹性布局 */
+    justify-content: space-between;
+    /* 两端对齐 */
+    align-items: center;
+    /* 垂直居中 */
+}
+
+.schedule-item:hover {
+    transform: scale(1.01);
+    /* 悬停时放大 */
+    box-shadow: 0 4px 8px var(--shadow-lg);
+    /* 悬停时阴影效果 */
+}
+
+.schedule-item h3 {
+    color: var(--text);
+    /* 标题颜色 */
+    margin-bottom: 0.5rem;
+    /* 下边距 */
+    font-size: 1.2rem;
+    /* 字体大小 */
+}
+
+.schedule-item p {
+    color: var(--text-light);
+    /* 描述颜色 */
+    font-size: 0.9rem;
+    /* 字体大小 */
+}
+
+.schedule-popup {
+    display: none;
+    /* 初始隐藏 */
+    position: fixed;
+    /* 固定定位 */
+    top: 50%;
+    /* 垂直居中 */
+    left: 50%;
+    /* 水平居中 */
+    transform: translate(-50%, -50%) scale(0.8);
+    /* 缩放效果 */
+    background: var(--white);
+    /* 背景色 */
+    border-radius: 20px;
+    /* 圆角 */
+    padding: 2rem;
+    /* 内边距 */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    /* 阴影效果 */
+    z-index: 1000;
+    /* 层级 */
+    width: 90%;
+    /* 宽度 */
+    max-width: 600px;
+    /* 最大宽度 */
+    opacity: 0;
+    /* 初始透明度 */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 过渡效果 */
+}
+
+.schedule-popup.active {
+    display: block;
+    /* 显示 */
+    opacity: 1;
+    /* 完全不透明 */
+    transform: translate(-50%, -50%) scale(1);
+    /* 还原缩放 */
+}
+
+.popup-overlay {
+    display: none;
+    /* 初始隐藏 */
+    position: fixed;
+    /* 固定定位 */
+    top: 0;
+    /* 顶部 */
+    left: 0;
+    /* 左侧 */
+    width: 100%;
+    /* 宽度 */
+    height: 100%;
+    /* 高度 */
+    background: rgba(0, 0, 0, 0.5);
+    /* 半透明背景 */
+    backdrop-filter: blur(4px);
+    /* 背景模糊 */
+    z-index: 999;
+    /* 层级 */
+    opacity: 0;
+    /* 初始透明度 */
+    transition: opacity 0.3s ease;
+    /* 过渡效果 */
+}
+
+.popup-overlay.active {
+    display: block;
+    /* 显示 */
+    opacity: 1;
+    /* 完全不透明 */
+}
+
+.popup-header {
+    display: flex;
+    /* 使用弹性布局 */
+    justify-content: space-between;
+    /* 两端对齐 */
+    align-items: center;
+    /* 垂直居中 */
+    margin-bottom: 1.5rem;
+    /* 下边距 */
+    padding-bottom: 1rem;
+    /* 下内边距 */
+    border-bottom: 2px solid var(--secondary);
+    /* 下边框 */
+}
+
+.popup-title {
+    font-size: 1.5rem;
+    /* 标题字体大小 */
+    color: var(--text);
+    /* 标题颜色 */
+    font-weight: 600;
+    /* 字体加粗 */
+}
+
+.popup-close {
+    background: none;
+    /* 无背景 */
+    border: none;
+    /* 无边框 */
+    color: var(--text-light);
+    /* 关闭按钮颜色 */
+    font-size: 1.5rem;
+    /* 字体大小 */
+    cursor: pointer;
+    /* 鼠标指针样式 */
+    padding: 0.5rem;
+    /* 内边距 */
+    transition: all 0.3s ease;
+    /* 过渡效果 */
+}
+
+.popup-close:hover {
+    color: var(--text);
+    /* 悬停时颜色 */
+    transform: rotate(90deg);
+    /* 悬停时旋转 */
+}
+
+.popup-content {
+    max-height: 70vh;
+    /* 最大高度 */
+    overflow-y: auto;
+    /* 超出隐藏 */
+    padding-right: 1rem;
+    /* 右内边距 */
+}
+
+.schedule-detail {
+    background: var(--secondary);
+    /* 背景色 */
+    border-radius: 12px;
+    /* 圆角 */
+    padding: 1.5rem;
+    /* 内边距 */
+    margin-bottom: 1rem;
+    /* 下边距 */
+    transition: all 0.3s ease;
+    /* 过渡效果 */
+    cursor: pointer;
+    /* 鼠标指针样式 */
+}
+
+.schedule-detail:hover {
+    transform: translateX(10px);
+    /* 悬停时向右移动 */
+    box-shadow: 0 4px 8px var(--shadow);
+    /* 悬停时阴影效果 */
+}
+
+.schedule-image {
+    width: 100%;
+    /* 宽度 */
+    height: 200px;
+    /* 高度 */
+    border-radius: 12px;
+    /* 圆角 */
+    object-fit: cover;
+    /* 图片覆盖 */
+    margin: 1rem 0;
+    /* 上下边距 */
+    opacity: 0;
+    /* 初始透明度 */
+    transform: translateY(20px);
+    /* 向下移动 */
+    animation: imageLoad 0.8s ease forwards;
+    /* 动画效果 */
+}
+
+@keyframes imageLoad {
+    to {
+        opacity: 1;
+        /* 结束时完全不透明 */
+        transform: translateY(0);
+        /* 结束时回到原位 */
+    }
+}
+
+.schedule-info {
+    margin-top: 1rem;
+    /* 上边距 */
+    padding: 1rem;
+    /* 内边距 */
+    background: var(--white);
+    /* 背景色 */
+    border-radius: 8px;
+    /* 圆角 */
+    box-shadow: 0 2px 4px var(--shadow);
+    /* 阴影效果 */
+}
+
+.schedule-info h4 {
+    color: var(--text);
+    /* 标题颜色 */
+    margin-bottom: 0.5rem;
+    /* 下边距 */
+    font-size: 1.1rem;
+    /* 字体大小 */
+}
+
+.schedule-info p {
+    color: var(--text-light);
+    /* 描述颜色 */
+    font-size: 0.9rem;
+    /* 字体大小 */
+    margin-bottom: 0.5rem;
+    /* 下边距 */
+}
+
+.schedule-link {
+    display: inline-block;
+    /* 行内块元素 */
+    margin-top: 1rem;
+    /* 上边距 */
+    padding: 0.8rem 1.5rem;
+    /* 内边距 */
+    background: var(--primary);
+    /* 背景色 */
+    color: var(--white);
+    /* 文字颜色 */
+    border-radius: 8px;
+    /* 圆角 */
+    text-decoration: none;
+    /* 去掉下划线 */
+    transition: all 0.3s ease;
+    /* 过渡效果 */
+    transform: translateY(0);
+    /* 初始位置 */
+}
+
+.schedule-link:hover {
+    background: var(--primary-light);
+    /* 悬停时背景色 */
+    transform: translateY(-2px);
+    /* 悬停时向上移动 */
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+    /* 悬停时阴影效果 */
+}
+
+.export-btn {
+    position: fixed;
+    /* 固定定位 */
+    bottom: 2rem;
+    /* 距离底部 */
+    right: 2rem;
+    /* 距离右侧 */
+    background: var(--primary);
+    /* 背景色 */
+    color: var(--white);
+    /* 文字颜色 */
+    border: none;
+    /* 无边框 */
+    padding: 1rem 2rem;
+    /* 内边距 */
+    border-radius: 30px;
+    /* 圆角 */
+    cursor: pointer;
+    /* 鼠标指针样式 */
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    /* 阴影效果 */
+    transition: all 0.3s ease;
+    /* 过渡效果 */
+    font-size: 1rem;
+    /* 字体大小 */
+    font-weight: 500;
+    /* 字体粗细 */
+    display: flex;
+    /* 使用弹性布局 */
+    align-items: center;
+    /* 垂直居中 */
+    gap: 0.5rem;
+    /* 间距 */
+}
+
+.export-btn i {
+    font-size: 1.2rem;
+    /* 图标大小 */
+}
+
+.export-btn:hover {
+    transform: translateY(-2px);
+    /* 悬停时向上移动 */
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    /* 悬停时阴影效果 */
+    background: var(--primary-light);
+    /* 悬停时背景色 */
+}
+
+.modal {
+    display: none;
+    /* 初始隐藏 */
+    position: fixed;
+    /* 固定定位 */
+    top: 0;
+    /* 顶部 */
+    left: 0;
+    /* 左侧 */
+    width: 100%;
+    /* 宽度 */
+    height: 100%;
+    /* 高度 */
+    background: rgba(0, 0, 0, 0.5);
+    /* 半透明背景 */
+    backdrop-filter: blur(4px);
+    /* 背景模糊 */
+    justify-content: center;
+    /* 水平居中 */
+    align-items: center;
+    /* 垂直居中 */
+    z-index: 1000;
+    /* 层级 */
+}
+
+.modal-content {
+    background: var(--white);
+    /* 背景色 */
+    padding: 2rem;
+    /* 内边距 */
+    border-radius: 16px;
+    /* 圆角 */
+    width: 90%;
+    /* 宽度 */
+    max-width: 500px;
+    /* 最大宽度 */
+    transform: scale(0.9);
+    /* 缩放效果 */
+    opacity: 0;
+    /* 初始透明度 */
+    transition: all 0.3s ease;
+    /* 过渡效果 */
+    position: relative;
+    /* 相对定位 */
+}
+
+.modal.active {
+    display: flex;
+    /* 显示 */
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+    /* 还原缩放 */
+    opacity: 1;
+    /* 完全不透明 */
+}
+
+.modal-header {
+    display: flex;
+    /* 使用弹性布局 */
+    justify-content: space-between;
+    /* 两端对齐 */
+    align-items: center;
+    /* 垂直居中 */
+    margin-bottom: 1.5rem;
+    /* 下边距 */
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    /* 标题字体大小 */
+    color: var(--text);
+    /* 标题颜色 */
+    font-weight: 600;
+    /* 字体加粗 */
+}
+
+.close-btn {
+    background: none;
+    /* 无背景 */
+    border: none;
+    /* 无边框 */
+    color: var(--text-light);
+    /* 关闭按钮颜色 */
+    font-size: 1.5rem;
+    /* 字体大小 */
+    cursor: pointer;
+    /* 鼠标指针样式 */
+    padding: 0.5rem;
+    /* 内边距 */
+    transition: all 0.2s ease;
+    /* 过渡效果 */
+}
+
+.close-btn:hover {
+    color: var(--text);
+    /* 悬停时颜色 */
+    transform: rotate(90deg);
+    /* 悬停时旋转 */
+}
+
+.modal-actions {
+    display: flex;
+    /* 使用弹性布局 */
+    gap: 1rem;
+    /* 间距 */
+    margin-top: 2rem;
+    /* 上边距 */
+}
+
+.modal-btn {
+    flex: 1;
+    /* 平分空间 */
+    padding: 1rem;
+    /* 内边距 */
+    border-radius: 8px;
+    /* 圆角 */
+    border: none;
+    /* 无边框 */
+    cursor: pointer;
+    /* 鼠标指针样式 */
+    font-size: 1rem;
+    /* 字体大小 */
+    font-weight: 500;
+    /* 字体粗细 */
+    transition: all 0.2s ease;
+    /* 过渡效果 */
+    display: flex;
+    /* 使用弹性布局 */
+    align-items: center;
+    /* 垂直居中 */
+    justify-content: center;
+    /* 水平居中 */
+    gap: 0.5rem;
+    /* 间距 */
+}
+
+.primary-btn {
+    background: var(--primary);
+    /* 背景色 */
+    color: var(--white);
+    /* 文字颜色 */
+}
+
+.primary-btn:hover {
+    background: var(--primary-light);
+    /* 悬停时背景色 */
+}
+
+.secondary-btn {
+    background: var(--secondary);
+    /* 背景色 */
+    color: var(--text);
+    /* 文字颜色 */
+}
+
+.secondary-btn:hover {
+    background: #e2e8f0;
+    /* 悬停时背景色 */
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        /* 初始透明度 */
+        transform: translateY(20px);
+        /* 向下移动 */
+    }
+
+    to {
+        opacity: 1;
+        /* 结束时完全不透明 */
+        transform: translateY(0);
+        /* 结束时回到原位 */
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        /* 初始透明度 */
+        transform: scale(0.9);
+        /* 初始缩放 */
+    }
+
+    to {
+        opacity: 1;
+        /* 结束时完全不透明 */
+        transform: scale(1);
+        /* 结束时回到原位 */
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+        /* 不动 */
+    }
+
+    40% {
+        transform: translateY(-10px);
+        /* 向上移动 */
+    }
+
+    60% {
+        transform: translateY(-5px);
+        /* 向上移动 */
+    }
+}
+
+.animate-slide-in {
+    animation: slideIn 0.5s ease forwards;
+    /* 动画效果 */
+}
+
+.animate-fade-scale {
+    animation: fadeInScale 0.5s ease forwards;
+    /* 动画效果 */
+}
+
+.animate-bounce {
+    animation: bounce 1s ease infinite;
+    /* 动画效果 */
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        /* 内边距 */
+    }
+
+    .calendar {
+        gap: 0.5rem;
+        /* 网格间距 */
+        padding: 0.5rem;
+        /* 内边距 */
+    }
+
+    .calendar-cell {
+        padding: 0.5rem;
+        /* 内边距 */
+    }
+
+    .calendar-cell .date {
+        font-size: 1rem;
+        /* 日期字体大小 */
+    }
+
+    .schedule-popup {
+        width: 95%;
+        /* 宽度 */
+        padding: 1.5rem;
+        /* 内边距 */
+    }
+
+    .schedule-image {
+        height: 150px;
+        /* 高度 */
+    }
+}
