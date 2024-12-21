@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 960 960">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="2.58" y1="960.87" x2="3.67" y2="957.48" gradientTransform="translate(-218.6 245633.01) scale(219.6 -255.6)" gradientUnits="userSpaceOnUse">
+      <stop offset=".28" stop-color="#00cdd7"/>
+      <stop offset=".94" stop-color="#2086d7"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="2.89" y1="960.39" x2="5.08" y2="957.86" gradientTransform="translate(-114.2 226797) scale(185.6 -236)" gradientUnits="userSpaceOnUse">
+      <stop offset=".14" stop-color="#fff045"/>
+      <stop offset=".37" stop-color="#00cdd7"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="613.81" y1="1828.42" x2="640.51" y2="1867.15" gradientTransform="translate(154.6 76917) scale(51.2 -80)" xlink:href="#linear-gradient"/>
+  </defs>
+  <polygon class="cls-4" points="140.45 854.37 15.67 112.97 247.81 17.21 394.35 104.26 530.74 31.72 812.21 140.54 654.06 944.33 140.45 854.37"/>
+  <polygon class="cls-1" points="944.24 330.6 823.82 34.62 607.63 15.76 271.03 337.86 360.98 754.26 530.74 871.79 944.24 626.58 842.68 436.52 944.24 330.6"/>
+  <polygon class="cls-3" points="758.53 285.62 842.68 436.52 944.24 330.6 870.25 146.34 758.53 285.62"/>
+  <rect x="189.78" y="189.87" width="580.36" height="580.36"/>
+  <path class="cls-2" d="m244.91,661.41h217.63v36.27h-217.63v-36.27Zm284.38-190.07l30.47-37.72c21.76,17.41,43.53,29.02,71.09,29.02,21.76,0,34.82-8.71,34.82-23.21,0-13.06-8.71-20.31-47.88-30.47-47.88-13.06-78.35-26.12-78.35-74v-1.45c0-43.53,34.82-72.54,82.7-72.54,32.1-.13,63.29,10.6,88.5,30.47l-27.57,40.62c-17.52-13.69-38.75-21.78-60.94-23.21-18.86,0-30.47,8.71-30.47,21.76,0,15.96,10.16,21.76,50.78,31.92,47.88,13.06,75.45,30.47,75.45,72.54,0,47.88-36.27,75.45-87.05,75.45-37.27-1.37-73.02-15.16-101.56-39.17Zm-46.43-206.03l-36.27,139.29-40.63-139.29h-40.62l-40.63,139.29-36.27-139.29h-56.58l69.64,240.85h44.98l39.17-139.29,39.17,139.29h44.98l69.64-240.85h-56.58Z"/>
+</svg>

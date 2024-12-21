@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日程表</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./file/css/date.css">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>日程表</h1>
+            <p id="current-date"></p>
+        </div>
+
+        <div class="calendar-header">
+            <button class="calendar-nav-btn" onclick="changeYear(-1)">
+                <i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="calendar-nav-btn" onclick="changeMonth(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="calendar-title">
+                <h2 id="month-year"></h2>
+                <button class="calendar-today-btn" onclick="goToToday()">
+                    <i class="fas fa-calendar-day"></i>
+                    今天
+                </button>
+            </div>
+            <button class="calendar-nav-btn" onclick="changeMonth(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <button class="calendar-nav-btn" onclick="changeYear(1)">
+                <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="calendar" id="calendar-grid"></div>
+        <div class="schedule-list" id="schedule-list"></div>
+    </div>
+
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="schedule-popup" id="schedule-popup"></div>
+
+    <button class="export-btn" onclick="showExportModal()">
+        <i class="fas fa-calendar-plus"></i>
+        关联到本地
+    </button>
+
+    <div class="modal" id="export-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>选择导出方式</h2>
+                <button class="close-btn" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn secondary-btn" onclick="exportToFile()">
+                    <i class="fas fa-file-download"></i>
+                    下载表格文件
+                </button>
+                <button class="modal-btn primary-btn" onclick="exportToCalendar()">
+                    <i class="fas fa-calendar-alt"></i>
+                    写入系统日历
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="./file/js/date.js"></script>
+</body>
+
+</html>

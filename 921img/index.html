@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>921-🧦</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --secondary: #f8fafc;
+            --text: #0f172a;
+            --text-light: #475569;
+            --white: #ffffff;
+            --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--secondary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .title {
+            text-align: center;
+            color: var(--text);
+            margin-bottom: 40px;
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+
+        .upload-area {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .image-slot {
+            aspect-ratio: 1;
+            border: 2px solid var(--primary-light);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background: var(--secondary);
+            transform: scale(1);
+        }
+
+        .image-slot:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .image-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-slot:hover img {
+            transform: scale(1.05);
+        }
+
+        .slot-number {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--primary);
+            color: var(--white);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .controls {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+        }
+
+        button:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        #result {
+            max-width: 100%;
+            margin-top: 32px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.4s ease;
+        }
+
+        #result:not(.hidden) {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .home-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+            z-index: 100;
+        }
+
+        .home-link:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .image-slot.empty {
+            transform: scale(1);
+        }
+
+        .image-slot.empty:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <a href="https://www.rostos.ink" class="home-link">返回主站</a>
+    <div class="container">
+        <h1 class="title">九宫格图片无缝合成工具</h1>
+
+        <div class="upload-area">
+            <!-- 九宫格图片槽位 -->
+            <div class="image-slot empty" onclick="triggerFileInput(1)">
+                <span class="slot-number">1</span>
+                <img id="preview1" class="hidden">
+            </div>
+            <div class="image-slot empty" onclick="triggerFileInput(2)">
+                <span class="slot-number">2</span>
+                <img id="preview2" class="hidden">
+            </div>
+            <div class="image-slot empty" onclick="triggerFileInput(3)">
+                <span class="slot-number">3</span>
+                <img id="preview3" class="hidden">
+            </div>
+            <div class="image-slot empty" onclick="triggerFileInput(4)">
+                <span class="slot-number">4</span>
+                <img id="preview4" class="hidden">
+            </div>
+            <div class="image-slot empty" onclick="triggerFileInput(5)">
+                <span class="slot-number">5</span>
+                <img id="preview5" class="hidden">
+            </div>
+            <div class="image-slot empty" onclick="triggerFileInput(6)">
+                <span class="slot-number">6</span>
+                <img id="preview6" class="hidden">
+            </div>
+            <div class="image-slot empty" onclick="triggerFileInput(7)">
+                <span class="slot-number">7</span>
+                <img id="preview7" class="hidden">
+            </div>
+            <div class="image-slot empty" onclick="triggerFileInput(8)">
+                <span class="slot-number">8</span>
+                <img id="preview8" class="hidden">
+            </div>
+            <div class="image-slot empty" onclick="triggerFileInput(9)">
+                <span class="slot-number">9</span>
+                <img id="preview9" class="hidden">
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="selectAllImages()">批量选择图片</button>
+            <button onclick="mergeImages()">合成图片</button>
+            <button onclick="downloadResult()">下载结果</button>
+        </div>
+
+        <canvas id="canvas" class="hidden"></canvas>
+        <img id="result" class="hidden">
+    </div>
+
+    <!-- 隐藏的文件输入框 -->
+    <input type="file" id="fileInput" accept="image/*" multiple class="hidden" onchange="handleFiles(this.files)">
+
+    <script>
+        // 存储已上传的图片
+        let uploadedImages = new Array(9).fill(null);
+
+        // 触发文件选择
+        function triggerFileInput(slotNumber) {
+            const input = document.getElementById('fileInput');
+            input.setAttribute('data-slot', slotNumber);
+            input.click();
+        }
+
+        // 批量选择图片
+        function selectAllImages() {
+            const input = document.getElementById('fileInput');
+            input.removeAttribute('data-slot');
+            input.click();
+        }
+
+        // 处理选择的文件
+        function handleFiles(files) {
+            const input = document.getElementById('fileInput');
+            const slotNumber = input.getAttribute('data-slot');
+
+            if (slotNumber) {
+                // 单个槽位上传
+                if (files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const preview = document.getElementById(`preview${slotNumber}`);
+                        const slot = preview.parentElement;
+                        preview.src = e.target.result;
+                        preview.classList.remove('hidden');
+                        slot.classList.remove('empty');
+                        uploadedImages[slotNumber - 1] = e.target.result;
+                    }
+                    reader.readAsDataURL(files[0]);
+                }
+            } else {
+                // 批量上传
+                Array.from(files).slice(0, 9).forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const preview = document.getElementById(`preview${index + 1}`);
+                        const slot = preview.parentElement;
+                        preview.src = e.target.result;
+                        preview.classList.remove('hidden');
+                        slot.classList.remove('empty');
+                        uploadedImages[index] = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        // 合并图片
+        function mergeImages() {
+            if (uploadedImages.some(img => !img)) {
+                alert('请确保所有九宫格都已上传图片！');
+                return;
+            }
+
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const result = document.getElementById('result');
+
+            // 设置画布大小
+            let maxWidth = 0;
+            let maxHeight = 0;
+
+            // 加载所有图片并获取最大尺寸
+            Promise.all(uploadedImages.map(src => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => resolve(img);
+                    img.src = src;
+                });
+            })).then(images => {
+                // 计算单个图片的标准尺寸
+                images.forEach(img => {
+                    maxWidth = Math.max(maxWidth, img.width);
+                    maxHeight = Math.max(maxHeight, img.height);
+                });
+
+                // 设置画布尺寸为3x3网格
+                canvas.width = maxWidth * 3;
+                canvas.height = maxHeight * 3;
+
+                // 绘制图片
+                images.forEach((img, index) => {
+                    const row = Math.floor(index / 3);
+                    const col = index % 3;
+
+                    // 计算绘制位置
+                    const x = col * maxWidth;
+                    const y = row * maxHeight;
+
+                    // 使用drawImage的9参数版本以确保图片完全填充且无缝
+                    ctx.drawImage(img, 0, 0, img.width, img.height, x, y, maxWidth, maxHeight);
+                });
+
+                // 显示结果
+                result.src = canvas.toDataURL('image/png');
+                result.classList.remove('hidden');
+            });
+        }
+
+        // 下载结果
+        function downloadResult() {
+            const result = document.getElementById('result');
+            if (result.src) {
+                const link = document.createElement('a');
+                link.download = '九宫格合成图片.png';
+                link.href = result.src;
+                link.click();
+            } else {
+                alert('请先合成图片！');
+            }
+        }
+    </script>
+</body>
+
+</html>
