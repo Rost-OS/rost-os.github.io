@@ -7,7 +7,7 @@ const scheduleData = [
     {
         title: "FurryGooo", // 标题
         description: "FurryGooo 冬日集会", // 描述
-        image: "/api/placeholder/600/400", // 图片链接
+        image: "../pic/FG/FG-2025-2-7.png", // 图片链接
         link: "https://www.bilibili.com/opus/1000012699584692229", // 链接
         location: "广州·花都皇冠假日酒店", // 地点
         startDate: "2025-02-07 00:00", // 开始时间
